@@ -22,3 +22,5 @@ pipeline {
 }
 git commit -m "Added Jenkinsfile and other project files"
 
+git add .
+git commit -m "initial commit"
