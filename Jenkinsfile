@@ -3,24 +3,32 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git 'https://github.com/SRCEM-AIML/C1_15_RoshniChawla_Assignment2.git'
+                git branch: 'main', url: 'https://github.com/SRCEM-AIML/C1_15_RoshniChawla_Assignment2.git'
             }
         }
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t roshnichawla/studentproject .'
+                script {
+                    try {
+                        sh 'docker build -t roshnichawla/studentproject .'
+                    } catch (Exception e) {
+                        error "Docker build failed: ${e}"
+                    }
+                }
             }
         }
         stage('Push to Docker Hub') {
             steps {
-                withDockerRegistry(credentialsId: 'docker-hub-credentials') {
-                    sh 'docker push roshnichawla/studentproject'
+                script {
+                    try {
+                        withDockerRegistry(credentialsId: 'docker-hub-credentials') {
+                            sh 'docker push roshnichawla/studentproject'
+                        }
+                    } catch (Exception e) {
+                        error "Docker push failed: ${e}"
+                    }
                 }
             }
         }
     }
 }
-git commit -m "Added Jenkinsfile and other project files"
-
-git add .
-git commit -m "initial commit"
