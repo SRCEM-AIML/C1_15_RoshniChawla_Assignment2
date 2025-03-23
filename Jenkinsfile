@@ -20,3 +20,4 @@ pipeline {
         }
     }
 }
+git commit -m "Added Jenkinsfile and other project files"
