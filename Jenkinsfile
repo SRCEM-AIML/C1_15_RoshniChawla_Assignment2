@@ -10,7 +10,7 @@ pipeline {
             steps {
                 script {
                     try {
-                        sh 'docker build -t roshnichawla/studentproject .'
+                        bat 'docker build -t roshnichawla/studentproject .'
                     } catch (Exception e) {
                         error "Docker build failed: ${e}"
                     }
@@ -22,7 +22,7 @@ pipeline {
                 script {
                     try {
                         withDockerRegistry(credentialsId: 'docker-hub-credentials') {
-                            sh 'docker push roshnichawla/studentproject'
+                            bat 'docker push roshnichawla/studentproject'
                         }
                     } catch (Exception e) {
                         error "Docker push failed: ${e}"
